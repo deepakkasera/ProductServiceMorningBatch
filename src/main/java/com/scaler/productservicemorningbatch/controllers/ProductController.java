@@ -1,7 +1,10 @@
 package com.scaler.productservicemorningbatch.controllers;
 
 import com.scaler.productservicemorningbatch.models.Product;
+import com.scaler.productservicemorningbatch.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +12,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+    private ProductService productService;
+
+    ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     //localhost:8080/products/30
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable("id") Long id) {
-        return new Product();
+        return productService.getProductById(id);
     }
 
     //localhost:8080/products

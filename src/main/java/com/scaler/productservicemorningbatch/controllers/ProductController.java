@@ -1,5 +1,7 @@
 package com.scaler.productservicemorningbatch.controllers;
 
+import com.scaler.productservicemorningbatch.exceptions.InvalidProductIdException;
+import com.scaler.productservicemorningbatch.exceptions.ProductControllerSpecificException;
 import com.scaler.productservicemorningbatch.models.Product;
 import com.scaler.productservicemorningbatch.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,19 @@ public class ProductController {
 
     //localhost:8080/products/30
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws InvalidProductIdException {
+        //throw new RuntimeException("Something went wrong");
+//        Product product = null;
+//        try {
+//            product = productService.getProductById(id);
+//        } catch (RuntimeException e) {
+//            System.out.println("Something went wrong");
+//            return new ResponseEntity<>(product, HttpStatus.NOT_FOUND);
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            return
+//        }
         Product product = productService.getProductById(id);
-
-        return new ResponseEntity<>(product, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     //localhost:8080/products
@@ -56,5 +67,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id) {
 
+    }
+
+    @ExceptionHandler(ProductControllerSpecificException.class)
+    public ResponseEntity<Void> handleProductControllerSpecificException() {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

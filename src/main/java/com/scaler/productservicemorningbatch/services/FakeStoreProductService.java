@@ -1,6 +1,7 @@
 package com.scaler.productservicemorningbatch.services;
 
 import com.scaler.productservicemorningbatch.dtos.FakeStoreProductDto;
+import com.scaler.productservicemorningbatch.exceptions.InvalidProductIdException;
 import com.scaler.productservicemorningbatch.models.Category;
 import com.scaler.productservicemorningbatch.models.Product;
 import org.springframework.http.HttpMethod;
@@ -36,17 +37,18 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws InvalidProductIdException {
         //Call the FakeStore API to get the product with given ID here.
         FakeStoreProductDto fakeStoreProductDto =
                 restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
 
         if (fakeStoreProductDto == null) {
-            return null;
+            throw new InvalidProductIdException("Invalid productId passed");
         }
 
         //Convert fakeStoreProductDto to product object.
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+        //throw new RuntimeException("Something went wrong in FakeStoreProductService");
     }
 
     @Override

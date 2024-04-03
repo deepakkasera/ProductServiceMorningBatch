@@ -30,9 +30,9 @@ public class FakeStoreProductService implements ProductService {
         product.setImage(fakeStoreProductDto.getImage());
         product.setPrice(fakeStoreProductDto.getPrice());
 
-        Category category = new Category();
-        category.setTitle(fakeStoreProductDto.getCategory());
-        product.setCategory(category);
+//        Category category = new Category();
+//        category.setTitle(fakeStoreProductDto.getCategory());
+        //product.setCategory(category);
         return product;
     }
 
@@ -43,7 +43,7 @@ public class FakeStoreProductService implements ProductService {
                 restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
 
         if (fakeStoreProductDto == null) {
-            throw new InvalidProductIdException("Invalid productId passed");
+            throw new InvalidProductIdException(id, "Invalid productId passed");
         }
 
         //Convert fakeStoreProductDto to product object.

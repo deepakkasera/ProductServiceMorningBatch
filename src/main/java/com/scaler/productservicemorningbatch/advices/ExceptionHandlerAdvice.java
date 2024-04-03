@@ -24,8 +24,9 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(InvalidProductIdException.class)
-    public ResponseEntity<ExceptionDto> handleInvalidProductIdException() {
+    public ResponseEntity<ExceptionDto> handleInvalidProductIdException(InvalidProductIdException exception) {
         ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setProductId(exception.getProductId());
         exceptionDto.setMessage("Invalid productId passed, please retry with a valid productId");
         return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
     }

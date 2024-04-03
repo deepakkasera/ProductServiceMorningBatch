@@ -1,7 +1,15 @@
 package com.scaler.productservicemorningbatch.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class InvalidProductIdException extends Exception {
-    public InvalidProductIdException(String message) {
+    private Long productId;
+
+    public InvalidProductIdException(Long productId, String message) {
         super(message);
+        this.productId = productId;
     }
 }

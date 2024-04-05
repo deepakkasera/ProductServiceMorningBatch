@@ -5,6 +5,7 @@ import com.scaler.productservicemorningbatch.exceptions.ProductControllerSpecifi
 import com.scaler.productservicemorningbatch.models.Product;
 import com.scaler.productservicemorningbatch.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
 
-    ProductController(ProductService productService) {
+    ProductController(@Qualifier("selfProductService") ProductService productService) {
         this.productService = productService;
     }
 
@@ -49,7 +50,7 @@ public class ProductController {
     //create a Product
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
-        return new Product();
+        return productService.createProduct(product);
     }
 
     //Partial Update.

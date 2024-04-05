@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service("fakeStoreProductService")
 //@Primary
@@ -68,7 +69,7 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Product updateProduct() {
+    public Product updateProduct(Long id, Product product) {
         return null;
     }
 

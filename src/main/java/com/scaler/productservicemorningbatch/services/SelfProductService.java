@@ -43,8 +43,25 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
-    public Product updateProduct() {
-        return null;
+    public Product updateProduct(Long id, Product product) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if (optionalProduct.isEmpty()) throw new RuntimeException();
+
+        if (product == null) throw new RuntimeException("Invalid input exception to update method");
+
+        Product currentProduct = optionalProduct.get();
+
+        if (product.getTitle() != null) {
+            //If title isn't null that means we want to update the title.
+            currentProduct.setTitle(product.getTitle());
+        }
+
+        if (product.getDescription() != null) {
+            currentProduct.setDescription(product.getDescription());
+        }
+
+        return productRepository.save(currentProduct);
     }
 
     @Override

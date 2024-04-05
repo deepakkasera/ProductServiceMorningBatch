@@ -30,6 +30,9 @@ public interface ProductRepository
     void deleteByTitle(String title);
 
     Product save(Product product);
+
+//    @Query("Custom Query") //HQL -> Hibernate Query Language
+//    Optional<Product> someRandomQuery();
 }
 
 /*

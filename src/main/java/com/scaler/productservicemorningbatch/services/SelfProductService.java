@@ -37,6 +37,7 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
+    //TODO
     public List<Product> getAllProducts() {
         //Fetch all the products from DB
         return null;
@@ -64,6 +65,7 @@ public class SelfProductService implements ProductService {
         return productRepository.save(currentProduct);
     }
 
+    //TODO
     @Override
     public Product replaceProduct(Long id, Product product) {
         return null;
@@ -82,6 +84,7 @@ public class SelfProductService implements ProductService {
         return productRepository.save(product);
     }
 
+    //TODO
     @Override
     public void deleteProduct() {
 

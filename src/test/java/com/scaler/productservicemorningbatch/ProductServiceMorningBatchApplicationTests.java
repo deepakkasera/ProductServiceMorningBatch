@@ -1,6 +1,8 @@
 package com.scaler.productservicemorningbatch;
 
+import com.scaler.productservicemorningbatch.models.Category;
 import com.scaler.productservicemorningbatch.models.Product;
+import com.scaler.productservicemorningbatch.repositories.CategoryRepository;
 import com.scaler.productservicemorningbatch.repositories.ProductRepository;
 import com.scaler.productservicemorningbatch.repositories.projections.ProductWithIdAndTitle;
 import org.junit.jupiter.api.Test;
@@ -12,8 +14,11 @@ import java.util.Optional;
 
 @SpringBootTest
 class ProductServiceMorningBatchApplicationTests {
-    @Autowired
+    @Autowired // Dependency Injection
     private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Test
     void contextLoads() {
@@ -28,17 +33,29 @@ class ProductServiceMorningBatchApplicationTests {
 //            System.out.println(product.getTitle());
 //        }
 
-        ProductWithIdAndTitle product = productRepository.doSomething(3L);
-        System.out.println(product.getId());
-        System.out.println(product.getTitle());
+//        ProductWithIdAndTitle product = productRepository.doSomething(3L);
+//        System.out.println(product.getId());
+//        System.out.println(product.getTitle());
+//
+//        Product product1 = productRepository.doSomethingSQL();
+//
+//        Optional<Product> productOptional = productRepository.findById(2L);
+//        Product product2 = null;
+//        if (productOptional.isPresent()) {
+//            product2 = productOptional.get();
+//        }
 
-        Product product1 = productRepository.doSomethingSQL();
+//        System.out.println("DEBUG");
 
-        Optional<Product> productOptional = productRepository.findById(2L);
-        Product product2 = null;
-        if (productOptional.isPresent()) {
-            product2 = productOptional.get();
-        }
+        //categoryRepository.deleteById(102L);
+
+        Optional<Category> optionalCategory = categoryRepository.findById(2L);
+
+        Category category = optionalCategory.get();
+
+        System.out.println("Fetched Category");
+
+        List<Product> products = category.getProducts();
 
         System.out.println("DEBUG");
     }

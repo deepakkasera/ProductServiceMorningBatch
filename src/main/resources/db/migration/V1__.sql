@@ -1,9 +1,9 @@
 CREATE TABLE category
 (
-    id         BIGINT NOT NULL,
+    id         BIGINT AUTO_INCREMENT NOT NULL,
     created_at datetime NULL,
     updated_at datetime NULL,
-    title      VARCHAR(255) NULL,
+    title      VARCHAR(50) NULL,
     CONSTRAINT pk_category PRIMARY KEY (id)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE msc_ta
 
 CREATE TABLE product
 (
-    id            BIGINT NOT NULL,
+    id            BIGINT AUTO_INCREMENT NOT NULL,
     created_at    datetime NULL,
     updated_at    datetime NULL,
     title         VARCHAR(255) NULL,

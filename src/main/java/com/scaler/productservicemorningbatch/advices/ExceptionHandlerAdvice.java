@@ -23,7 +23,7 @@ public class ExceptionHandlerAdvice {
         return null;
     }
 
-    @ExceptionHandler(InvalidProductIdException.class)
+    //@ExceptionHandler(InvalidProductIdException.class)
     public ResponseEntity<ExceptionDto> handleInvalidProductIdException(InvalidProductIdException exception) {
         ExceptionDto exceptionDto = new ExceptionDto();
         exceptionDto.setProductId(exception.getProductId());

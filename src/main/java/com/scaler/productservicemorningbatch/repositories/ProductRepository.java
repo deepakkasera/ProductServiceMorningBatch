@@ -17,6 +17,9 @@ public interface ProductRepository
 
     Optional<Product> findById(Long id);
 
+    @Override
+    List<Product> findAll();
+
     Optional<Product> findByTitleAndDescription(String title,
                                                 String description);
 

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("selfProductService")
-//@Primary
+@Primary
 public class SelfProductService implements ProductService {
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
@@ -30,7 +30,8 @@ public class SelfProductService implements ProductService {
 
         if (optionalProduct.isEmpty()) {
             //throw an Exception -> ProductNotFound
-            return null;
+            throw new InvalidProductIdException(id, "Invalid Product Id");
+//            return null;
         }
 
         return optionalProduct.get();
@@ -40,7 +41,7 @@ public class SelfProductService implements ProductService {
     //TODO
     public List<Product> getAllProducts() {
         //Fetch all the products from DB
-        return null;
+        return productRepository.findAll();
     }
 
     @Override

@@ -10,6 +10,8 @@ import com.scaler.productservicemorningbatch.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -49,16 +51,19 @@ public class ProductController {
     }
 
     //localhost:8080/products
-    @GetMapping("/all/{token}")
-    public ResponseEntity<List<Product>> getAllProducts(@PathVariable String token) {
+//    @GetMapping("/all/{token}")
+    @GetMapping("/")
+    public ResponseEntity<Page<Product>> getAllProducts(@RequestParam("pageNumber") int pageNumber,
+                                                               @RequestParam("pageSize") int pageSize,
+                                                        @RequestParam("sortDir") String sortDir) {
 
         //Validate the token using UserService.
-        UserDto userDto = authenticationCommons.validateToken(token);
+//        UserDto userDto = authenticationCommons.validateToken(token);
 
-        if (userDto == null) {
-            //token is invalid
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+//        if (userDto == null) {
+//            //token is invalid
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//        }
 
 //        boolean isAdmin = false;
 //        for (Role role : userDto.getRoles()) {
@@ -73,7 +78,7 @@ public class ProductController {
 //            return null;
 //        }
 
-        List<Product> products = productService.getAllProducts(); // @76589
+        Page<Product> products = productService.getAllProducts(pageNumber, pageSize, sortDir); // @76589
 
         //products = new ArrayList<>(); // @98123
 

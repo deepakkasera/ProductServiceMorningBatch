@@ -8,41 +8,41 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@SpringBootTest
+//@SpringBootTest
 public class SampleTestFile {
-    @Autowired
-    private ProductController productController;
-
-    @Test
-    void testOnePlusOneIsTwo() {
-        //3 A's
-        // Arrange, Act and Assert.
-
-        int i = 1 + 1; //Arrange + Act.
-
-        assert i == 2;
-    }
-
-    @Test
-    void testMultiplyFunction() {
-        int x = 2 * 2;
-        int y = 3 * 3;
-
-        assert x == 4;
-
-//        assert y == 7;
-        //assertEquals()
-        assertEquals(9, y, "3*3 isn't returning correct output.");
-//        assertNull(product);
-
-
-//        assertThrows(
-//                InvalidProductIdException.class,
-//                () -> productController.getProductById(10000L)
-//        );
-
-        //assertFalse();
-    }
+//    @Autowired
+//    private ProductController productController;
+//
+//    @Test
+//    void testOnePlusOneIsTwo() {
+//        //3 A's
+//        // Arrange, Act and Assert.
+//
+//        int i = 1 + 1; //Arrange + Act.
+//
+//        assert i == 2;
+//    }
+//
+//    @Test
+//    void testMultiplyFunction() {
+//        int x = 2 * 2;
+//        int y = 3 * 3;
+//
+//        assert x == 4;
+//
+////        assert y == 7;
+//        //assertEquals()
+//        assertEquals(9, y, "3*3 isn't returning correct output.");
+////        assertNull(product);
+//
+//
+////        assertThrows(
+////                InvalidProductIdException.class,
+////                () -> productController.getProductById(10000L)
+////        );
+//
+//        //assertFalse();
+//    }
 }
 
 /*

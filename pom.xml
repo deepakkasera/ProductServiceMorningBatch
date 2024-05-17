@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.scaler</groupId>
     <artifactId>ProductServiceMorningBatch</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-PROD</version>
     <name>ProductServiceMorningBatch</name>
     <description>ProductServiceMorningBatch</description>
     <properties>

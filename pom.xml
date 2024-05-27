@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.scaler</groupId>
     <artifactId>ProductServiceMorningBatch</artifactId>
-    <version>0.0.1-PROD</version>
+    <version>0.0.1-PROD-FINAL</version>
     <name>ProductServiceMorningBatch</name>
     <description>ProductServiceMorningBatch</description>
     <properties>
@@ -72,6 +72,20 @@
             <artifactId>assertj-core</artifactId>
             <version>3.25.3</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>4.1.1</version>
         </dependency>
 
     </dependencies>

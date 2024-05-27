@@ -4,9 +4,12 @@ import com.scaler.productservicemorningbatch.dtos.FakeStoreProductDto;
 import com.scaler.productservicemorningbatch.exceptions.InvalidProductIdException;
 import com.scaler.productservicemorningbatch.models.Category;
 import com.scaler.productservicemorningbatch.models.Product;
+import io.netty.channel.socket.ChannelOutputShutdownException;
+import org.hibernate.type.descriptor.java.ObjectJavaType;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,17 +17,18 @@ import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service("fakeStoreProductService")
 //@Primary
 public class FakeStoreProductService implements ProductService {
     private RestTemplate restTemplate;
+    private RedisTemplate redisTemplate;
 
-    FakeStoreProductService(RestTemplate restTemplate) {
+    FakeStoreProductService(RestTemplate restTemplate,
+                            RedisTemplate redisTemplate) {
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
 
     private Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStoreProductDto) {
@@ -44,6 +48,14 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public Product getProductById(Long id) throws InvalidProductIdException {
         //Call the FakeStore API to get the product with given ID here.
+
+         Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PRODUCT_" + id);
+
+        if (product != null) {
+            // Cache Hit
+            return product;
+        }
+
         FakeStoreProductDto fakeStoreProductDto =
                 restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
 
@@ -51,8 +63,12 @@ public class FakeStoreProductService implements ProductService {
             throw new InvalidProductIdException(id, "Invalid productId passed");
         }
 
+        product = convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+
+        redisTemplate.opsForHash().put("PRODUCTS", "PRODUCT_" + id, product);
+
         //Convert fakeStoreProductDto to product object.
-        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+        return product;
         //throw new RuntimeException("Something went wrong in FakeStoreProductService");
     }
 
@@ -61,7 +77,6 @@ public class FakeStoreProductService implements ProductService {
         FakeStoreProductDto[] fakeStoreProductDtos =
                 restTemplate.getForObject("https://fakestoreapi.com/products/",
                         FakeStoreProductDto[].class);
-
         List<Product> products = new ArrayList<>();
         for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
             products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));

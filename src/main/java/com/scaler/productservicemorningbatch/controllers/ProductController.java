@@ -26,11 +26,14 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
     private AuthenticationCommons authenticationCommons;
+    private RestTemplate restTemplate;
 
-    ProductController(@Qualifier("selfProductService") ProductService productService,
-                      AuthenticationCommons authenticationCommons) {
+    ProductController(@Qualifier("fakeStoreProductService") ProductService productService,
+                      AuthenticationCommons authenticationCommons,
+                      RestTemplate restTemplate) {
         this.productService = productService;
         this.authenticationCommons = authenticationCommons;
+        this.restTemplate = restTemplate;
     }
 
     //localhost:8080/products/30
@@ -46,6 +49,10 @@ public class ProductController {
 //        } catch (ArrayIndexOutOfBoundsException e) {
 //            return
 //        }
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(
+                "http://UserServiceMorningBatch/users/10", String.class
+        );
+
         Product product = productService.getProductById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }

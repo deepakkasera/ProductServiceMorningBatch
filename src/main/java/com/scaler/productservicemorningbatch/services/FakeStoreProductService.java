@@ -49,6 +49,8 @@ public class FakeStoreProductService implements ProductService {
     public Product getProductById(Long id) throws InvalidProductIdException {
         //Call the FakeStore API to get the product with given ID here.
 
+        System.out.println("Got the request in Product Service");
+
          Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PRODUCT_" + id);
 
         if (product != null) {

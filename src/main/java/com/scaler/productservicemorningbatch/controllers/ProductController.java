@@ -49,9 +49,9 @@ public class ProductController {
 //        } catch (ArrayIndexOutOfBoundsException e) {
 //            return
 //        }
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(
-                "http://UserServiceMorningBatch/users/10", String.class
-        );
+//        ResponseEntity<String> responseEntity = restTemplate.getForEntity(
+//                "http://UserServiceMorningBatch/users/10", String.class
+//        );
 
         Product product = productService.getProductById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
@@ -61,7 +61,7 @@ public class ProductController {
 //    @GetMapping("/all/{token}")
     @GetMapping("/")
     public ResponseEntity<Page<Product>> getAllProducts(@RequestParam("pageNumber") int pageNumber,
-                                                               @RequestParam("pageSize") int pageSize,
+                                                        @RequestParam("pageSize") int pageSize,
                                                         @RequestParam("sortDir") String sortDir) {
 
         //Validate the token using UserService.
